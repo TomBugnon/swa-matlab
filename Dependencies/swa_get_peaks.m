@@ -11,6 +11,22 @@ MNP  = find(diff(sign(slope_data)) == 2);
 % Find all the positive peaks
 MPP  = find(diff(sign(slope_data)) == -2);
 
+% If there is too many MNP vs MPP, it might be because of the slope staying
+% null in multiple consecutive time step. We resolve by perturbing
+% infinitesimally.
+acc = 0 % Avoid infinite loop
+while length(find(abs(diff(sign(slope_data)) == 1))) > 1 % not 2 because slope_data(0) == 0
+    
+    abs(length(MNP) - length(MPP) > 1);
+    slope_data(2:end) = slope_data(2:end) + 0.00001;
+    MNP  = find(diff(sign(slope_data)) == 2);
+    MPP  = find(diff(sign(slope_data)) == -2);
+    acc = acc + 1
+    if acc == 1000
+        error('Can not find the proper number of local min compared to local max')
+    end
+end
+
 % Check for earlier MPP than MNP
 if MNP(1) < MPP(1)
     MNP(1) = [];
