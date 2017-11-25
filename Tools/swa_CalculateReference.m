@@ -21,29 +21,29 @@ end
 Info.Parameters.Ref_Method = lower(Info.Parameters.Ref_Method);
 
 fprintf(1, 'Calculating: Canonical wave (%s) \n', Info.Parameters.Ref_Method);
-
-% adjust the electrode coordinates
-Th = pi/180*[Info.Electrodes.theta];        % Calculate theta values from x,y,z e_loc
-Rd = [Info.Electrodes.radius];              % Calculate radian values from x,y,z e_loc
-
-x = Rd.*cos(Th);                            % Calculate 2D projected X
-y = Rd.*sin(Th);                            % Calculate 2D projected Y
-
-% Squeeze the coordinates into a -0.5 to 0.5 box
-intrad = min(1.0,max(abs(Rd))); intrad = max(intrad,0.5);
-squeezefac = 0.5/intrad;
-x = x * squeezefac; y = y * squeezefac;
-
-% plot all the electrodes
-if flag_plot
-    figure('color', [0.2, 0.2, 0.2]);
-    axes('nextplot', 'add', 'Color', 'none');
-    axis off;
-    % mark the electrodes
-    scatter(y, x, 30, ...
-        'markerEdgeColor', [0.5, 0.5, 0.5],...
-        'markerFaceColor', [0.5, 0.5, 0.5]);
-end
+% 
+% % adjust the electrode coordinates
+% Th = pi/180*[Info.Electrodes.theta];        % Calculate theta values from x,y,z e_loc
+% Rd = [Info.Electrodes.radius];              % Calculate radian values from x,y,z e_loc
+% 
+% x = Rd.*cos(Th);                            % Calculate 2D projected X
+% y = Rd.*sin(Th);                            % Calculate 2D projected Y
+% 
+% % Squeeze the coordinates into a -0.5 to 0.5 box
+% intrad = min(1.0,max(abs(Rd))); intrad = max(intrad,0.5);
+% squeezefac = 0.5/intrad;
+% x = x * squeezefac; y = y * squeezefac;
+% 
+% % plot all the electrodes
+% if flag_plot
+%     figure('color', [0.2, 0.2, 0.2]);
+%     axes('nextplot', 'add', 'Color', 'none');
+%     axis off;
+%     % mark the electrodes
+%     scatter(y, x, 30, ...
+%         'markerEdgeColor', [0.5, 0.5, 0.5],...
+%         'markerFaceColor', [0.5, 0.5, 0.5]);
+% end
 
 switch Info.Parameters.Ref_Method
     
